@@ -7,8 +7,10 @@ description: Playwright MCP based visual development guidelines
 
 ## Core Principle
 - **Always use Playwright MCP** to visually confirm screens during development
+- **Use Context7 MCP for Playwright documentation** and implementation patterns
 - Visual verification is mandatory for all user-facing features
 - Test functionality through actual browser interaction, not just code inspection
+- Reference Context7 for Playwright best practices and testing strategies
 
 ## Development Workflow
 1. **Implement feature** - Write the backend/frontend code
@@ -58,12 +60,14 @@ description: Playwright MCP based visual development guidelines
 
 ## Testing Strategy & Best Practices
 ### Test Planning
+- **Use Context7 MCP to research Playwright testing patterns** before implementation
 - Start with happy path scenarios for core functionality
 - Test edge cases and error conditions systematically
 - Verify user experience flows end-to-end
 - Ensure accessibility compliance using snapshot tool
 - Test responsive design at multiple screen sizes
 - Test cross-browser compatibility when deploying
+- Search Context7 for browser automation best practices and common patterns
 
 ### Testing Workflow
 1. **Setup**: Use `mcp_playwright_browser_navigate` to reach the test page

@@ -47,6 +47,13 @@ project_name/
 - Follow PEP 8 style guidelines with Black formatter
 - Use type hints for better code documentation and IDE support
 
+## Documentation & Reference Strategy
+- **ALWAYS use Context7 MCP** for Django documentation and code examples
+- Use `mcp_Context7_resolve-library-id` to find Django-related libraries
+- Use `mcp_Context7_get-library-docs` to get specific documentation for Django features
+- Leverage Context7 for DRF, database backends, and third-party package documentation
+- Search for implementation patterns using Context7 before writing custom solutions
+
 ## Security & Best Practices
 - Always use `SECRET_KEY` from environment variables
 - Enable CSRF protection with proper configuration
@@ -99,6 +106,7 @@ USE_TZ = True
 
 ## API Development with DRF
 - Use Django REST Framework for all API development
+- **Use Context7 MCP to reference DRF documentation** and implementation patterns
 - Implement proper serializers with validation
 - Use viewsets and routers for consistent API structure
 - Implement proper pagination (PageNumberPagination recommended)
@@ -107,6 +115,7 @@ USE_TZ = True
 - Add proper API documentation using drf-spectacular
 - Implement proper filtering, searching, and ordering
 - Use throttling for rate limiting API access
+- Search Context7 for third-party DRF extensions before custom implementations
 
 ## Error Handling & Logging
 - Configure comprehensive logging in settings
@@ -129,12 +138,14 @@ USE_TZ = True
 
 ## Performance Optimization
 - Use Django's caching framework appropriately
+- **Reference Context7 MCP for Django performance best practices** and optimization patterns
 - Implement database query optimization (select_related, prefetch_related)
 - Use database indexing for frequently queried fields
 - Optimize static file serving with WhiteNoise
 - Implement proper pagination for large datasets
 - Use Django Debug Toolbar for performance monitoring in development
 - Profile and optimize slow queries and views
+- Search Context7 for performance-related Django packages before implementing custom solutions
 
 ## Deployment Considerations
 - Use environment variables for all sensitive configuration

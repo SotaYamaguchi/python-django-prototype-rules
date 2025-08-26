@@ -1,0 +1,91 @@
+---
+alwaysApply: true
+description: Context7 MCP usage guidelines for efficient documentation and code reference
+---
+
+# Context7 MCP Usage Rules
+
+## Core Strategy
+- **Context7 MCP is the PRIMARY source** for all library documentation and code examples
+- Use Context7 BEFORE implementing any new feature or solving any technical problem
+- Context7 provides real-time, comprehensive documentation that supersedes manual searches
+
+## Library Resolution Workflow
+1. **Always start with `mcp_Context7_resolve-library-id`** to find the exact library identifier
+2. Use descriptive library names (e.g., "django", "django-rest-framework", "playwright")
+3. Review multiple library options and select based on:
+   - **Name similarity** to your needs
+   - **Description relevance** to your use case
+   - **Trust Score** (prefer 7-10)
+   - **Code Snippets count** (higher = more comprehensive)
+
+## Documentation Retrieval Best Practices
+- Use `mcp_Context7_get-library-docs` with specific **topics** for focused results
+- Set appropriate **token limits** (5000-15000 for comprehensive coverage)
+- Use targeted searches: "authentication", "database setup", "testing patterns"
+- Search for implementation patterns BEFORE writing custom code
+
+## Context7 Integration Points
+
+### Django Development
+- **Settings configuration**: Search "django settings configuration"
+- **Model design**: Search "django model best practices" 
+- **API development**: Search "django rest framework patterns"
+- **Authentication**: Search "django authentication setup"
+- **Database optimization**: Search "django query optimization"
+
+### Playwright Testing
+- **Test patterns**: Search "playwright testing patterns"
+- **Browser automation**: Search "playwright browser automation"
+- **Page object models**: Search "playwright page objects"
+- **Assertion strategies**: Search "playwright assertions"
+
+### Performance & Security
+- **Caching strategies**: Search library-specific caching documentation
+- **Security patterns**: Search "django security best practices"
+- **Performance optimization**: Search performance-related packages and patterns
+
+## Context7 vs Manual Search
+### Use Context7 MCP When:
+- Learning new library features or APIs
+- Looking for implementation examples and patterns
+- Verifying best practices for known concepts
+- Exploring third-party package options
+- Understanding complex configuration options
+
+### Supplement with Manual Search When:
+- Context7 doesn't have the specific library
+- Need very recent updates (bleeding edge features)
+- Looking for community discussions or troubleshooting
+
+## Token Optimization
+- **Small queries (2000-5000 tokens)**: Quick API reference, specific method usage
+- **Medium queries (5000-10000 tokens)**: Feature implementation, configuration guides
+- **Large queries (10000-15000 tokens)**: Comprehensive guides, architectural patterns
+
+## Context7 Integration Examples
+```python
+# Before implementing Django settings
+# 1. Use: mcp_Context7_resolve-library-id with "django"
+# 2. Use: mcp_Context7_get-library-docs with topic "settings configuration"
+
+# Before setting up DRF API
+# 1. Use: mcp_Context7_resolve-library-id with "django-rest-framework"  
+# 2. Use: mcp_Context7_get-library-docs with topic "viewsets and serializers"
+
+# Before writing Playwright tests
+# 1. Use: mcp_Context7_resolve-library-id with "playwright"
+# 2. Use: mcp_Context7_get-library-docs with topic "testing patterns"
+```
+
+## Quality Assurance
+- **Always verify Context7 suggestions** through actual implementation
+- **Cross-reference multiple sources** when Context7 provides conflicting information
+- **Document any gaps** found in Context7 coverage for future reference
+- **Update implementation** based on Context7 best practices, not just working code
+
+## Context7 + Visual Development Integration
+- Use Context7 for implementation patterns, then verify with Playwright MCP
+- Research testing strategies in Context7 before writing Playwright tests
+- Use Context7 for browser automation patterns and best practices
+- Combine Context7 documentation with visual verification for complete development workflow
