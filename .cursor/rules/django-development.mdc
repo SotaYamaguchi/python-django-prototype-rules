@@ -47,6 +47,7 @@ project_name/
 - Implement proper input validation
 - Use Django's ORM to prevent SQL injection
 - Enable security middleware
+- For ngrok/external access: Configure ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS properly
 
 ## Database
 - Use SQLite for prototype development (simple setup, no external dependencies)
