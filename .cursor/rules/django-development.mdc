@@ -32,6 +32,7 @@ project_name/
 
 ## 開発標準
 - 環境別設定（development, production）
+- **ngrok外部アクセス設定はデフォルトで必須**
 - 基本的なエラーハンドリングとログ出力
 - Djangoのマイグレーションシステムを使用
 - Django命名規則に従う
@@ -49,9 +50,9 @@ project_name/
 - セキュリティミドルウェアはDjangoのデフォルトでOK
 - セッション設定はDjangoのデフォルトで十分
 
-## 外部アクセス設定（ngrok/トンネリング）
+## 外部アクセス設定（ngrok/トンネリング）⚠️ 必須設定
 ### ngrokでの開発
-社内デモ用にngrokを使用する場合の設定：
+**以下の設定はデフォルトで必ず追加してください：**
 
 ```python
 # ALLOWED_HOSTS for development with ngrok
@@ -70,14 +71,6 @@ CSRF_TRUSTED_ORIGINS = [
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_TZ = True
 ```
-
-### 使用方法
-1. Django開発設定にngrok設定を追加
-2. Django開発サーバーを再起動
-3. ngrok起動: `ngrok http 127.0.0.1:8000`
-4. 生成されたngrok URLでアクセス
-
-**注意**: これらの設定は開発用のみ。本番環境では具体的なドメイン名を使用。
 
 ## データベース設定
 - **開発**: SQLite（簡単なセットアップ、外部依存なし）
