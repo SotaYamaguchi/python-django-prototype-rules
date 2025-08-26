@@ -1,16 +1,12 @@
----
-alwaysApply: true
-description: Comprehensive Django development guidelines for Python prototype applications
----
 
-# Django Prototype Development Rules
+# Django 社内向けMVP開発ルール
 
-## Framework Selection
-- **Always use the latest stable Django version** when creating new applications
-- Use Django REST Framework (DRF) for API development
-- Prefer Django's built-in features over third-party alternatives when possible
+## フレームワーク選択
+- **最新の安定版Djangoを使用**
+- Django REST Framework (DRF) でAPI開発
+- 可能な限りDjangoの標準機能を優先
 
-## Project Structure
+## プロジェクト構造
 ```
 project_name/
 ├── manage.py
@@ -21,9 +17,7 @@ project_name/
 │   ├── settings/
 │   │   ├── __init__.py
 │   │   ├── base.py
-│   │   ├── development.py
-│   │   ├── testing.py
-│   │   └── production.py
+│   │   └── development.py
 │   ├── urls.py
 │   ├── wsgi.py
 │   └── asgi.py
@@ -36,42 +30,33 @@ project_name/
 └── templates/
 ```
 
-## Development Standards
-- Use environment-based settings (development, testing, staging, production)
-- Implement proper error handling and comprehensive logging
-- Use Django's migration system for all database changes
-- Follow Django naming conventions for models, views, and URLs
-- Prefer class-based views (CBVs) over function-based views when appropriate
-- Implement proper authentication and authorization
-- Use Django's built-in admin interface for content management
-- Follow PEP 8 style guidelines with Black formatter
-- Use type hints for better code documentation and IDE support
+## 開発標準
+- 環境別設定（development, production）
+- **ngrok外部アクセス設定はデフォルトで必須**
+- 基本的なエラーハンドリングとログ出力
+- Djangoのマイグレーションシステムを使用
+- Django命名規則に従う
+- クラスベースビューを優先
+- 基本的な認証・認可を実装
+- Django管理画面を活用
+- PEP 8スタイルガイドに従う
+- 型ヒントを使用
 
-## Documentation & Reference Strategy
-- **ALWAYS use Context7 MCP** for Django documentation and code examples
-- Use `mcp_Context7_resolve-library-id` to find Django-related libraries
-- Use `mcp_Context7_get-library-docs` to get specific documentation for Django features
-- Leverage Context7 for DRF, database backends, and third-party package documentation
-- Search for implementation patterns using Context7 before writing custom solutions
+## セキュリティとベストプラクティス
+- `SECRET_KEY`は環境変数から取得（推奨）
+- CSRF保護はDjangoのデフォルト設定で十分
+- 基本的な入力検証（Djangoの標準バリデーション）
+- Django ORMを使用（SQLインジェクションは自動防止）
+- セキュリティミドルウェアはDjangoのデフォルトでOK
+- セッション設定はDjangoのデフォルトで十分
 
-## Security & Best Practices
-- Always use `SECRET_KEY` from environment variables
-- Enable CSRF protection with proper configuration
-- Use HTTPS in production environments
-- Implement comprehensive input validation and sanitization
-- Use Django's ORM exclusively to prevent SQL injection
-- Enable all security middleware in production
-- Implement rate limiting for API endpoints
-- Use secure session and cookie settings
-- Regularly update dependencies for security patches
-
-## External Access Configuration (ngrok/tunneling)
-### Development with ngrok
-When developing with ngrok for external access, configure these settings in `development.py`:
+## 外部アクセス設定（ngrok/トンネリング）⚠️ 必須設定
+### ngrokでの開発
+**以下の設定はデフォルトで必ず追加してください：**
 
 ```python
 # ALLOWED_HOSTS for development with ngrok
-ALLOWED_HOSTS = ['*']  # Allow all hosts for development only
+ALLOWED_HOSTS = ['*']  # 開発用のみ
 
 # CSRF settings for ngrok and external access
 CSRF_TRUSTED_ORIGINS = [
@@ -87,71 +72,29 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_TZ = True
 ```
 
-### Usage Pattern
-1. Add ngrok settings to Django development settings
-2. Restart Django development server
-3. Start ngrok: `ngrok http 127.0.0.1:8000`
-4. Access the generated ngrok URL
+## データベース設定
+- **開発**: SQLite（簡単なセットアップ、外部依存なし）
+- **本番**: PostgreSQL
+- Djangoのマイグレーションシステムを使用
+- Djangoモデルベストプラクティスに従う
+- 基本的なデータベース制約とバリデーション
 
-**Security Note**: These settings are for development only. In production, use specific domain names instead of wildcards.
+## API開発（DRF）
+- Django REST FrameworkでAPI開発
+- 適切なシリアライザーとバリデーション
+- ViewSetとRouterで一貫したAPI構造
+- 適切なHTTPステータスコード
+- 基本的なフィルタリングと検索
+- APIドキュメント（drf-spectacular）
 
-## Database Configuration
-- **Development**: Use SQLite for simple setup and no external dependencies
-- **Testing**: Use SQLite with in-memory database for faster tests
-- **Production**: Use PostgreSQL for production environments
-- Implement proper database indexing for performance
-- Use Django's migration system for all schema changes
-- Follow Django model best practices and naming conventions
-- Use database constraints and validation at both model and database levels
+## エラーハンドリングとログ
+- 基本的なログ設定
+- Djangoの例外処理メカニズム
+- セキュリティ関連イベントのログ
+- 開発用のエラーページ
 
-## API Development with DRF
-- Use Django REST Framework for all API development
-- **Use Context7 MCP to reference DRF documentation** and implementation patterns
-- Implement proper serializers with validation
-- Use viewsets and routers for consistent API structure
-- Implement proper pagination (PageNumberPagination recommended)
-- Use appropriate HTTP status codes for all responses
-- Implement API versioning using URL namespacing
-- Add proper API documentation using drf-spectacular
-- Implement proper filtering, searching, and ordering
-- Use throttling for rate limiting API access
-- Search Context7 for third-party DRF extensions before custom implementations
-
-## Error Handling & Logging
-- Configure comprehensive logging in settings
-- Use structured logging with appropriate log levels
-- Implement custom error pages for production
-- Use Django's exception handling mechanisms
-- Log security-related events and errors
-- Configure error notifications for production environments
-- Use Django's built-in error reporting capabilities
-
-## Testing Strategy
-- Write comprehensive unit tests using Django's TestCase
-- Use factory_boy for test data generation and management
-- Implement integration tests for critical workflows
-- Use pytest-django for enhanced testing capabilities
-- Maintain high test coverage (aim for >90%)
-- Use fixtures appropriately for test data
-- Test API endpoints thoroughly with DRF test utilities
-- Implement end-to-end testing for user workflows
-
-## Performance Optimization
-- Use Django's caching framework appropriately
-- **Reference Context7 MCP for Django performance best practices** and optimization patterns
-- Implement database query optimization (select_related, prefetch_related)
-- Use database indexing for frequently queried fields
-- Optimize static file serving with WhiteNoise
-- Implement proper pagination for large datasets
-- Use Django Debug Toolbar for performance monitoring in development
-- Profile and optimize slow queries and views
-- Search Context7 for performance-related Django packages before implementing custom solutions
-
-## Deployment Considerations
-- Use environment variables for all sensitive configuration
-- Implement proper static file handling
-- Configure media file storage appropriately
-- Use proper WSGI/ASGI servers (Gunicorn, Uvicorn)
-- Implement health check endpoints
-- Configure proper logging for production monitoring
-- Use database connection pooling for better performance
+## MVP開発の優先事項
+- **機能実装を最優先**：完璧なコードより動作するプロトタイプ
+- **迅速な開発サイクル**：1-2週間での機能実装
+- **社内フィードバック重視**：ユーザビリティを優先
+- **最小限の機能セット**：コア機能のみ実装
