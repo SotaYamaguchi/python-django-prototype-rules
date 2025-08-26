@@ -1,6 +1,6 @@
 ---
 alwaysApply: true
-description: Django development guidelines for Python prototype applications
+description: Comprehensive Django development guidelines for Python prototype applications
 ---
 
 # Django Prototype Development Rules
@@ -16,56 +16,131 @@ project_name/
 ├── manage.py
 ├── requirements.txt
 ├── .env
+├── .gitignore
 ├── project_name/
 │   ├── settings/
 │   │   ├── __init__.py
 │   │   ├── base.py
 │   │   ├── development.py
+│   │   ├── testing.py
 │   │   └── production.py
 │   ├── urls.py
-│   └── wsgi.py
+│   ├── wsgi.py
+│   └── asgi.py
 ├── apps/
 │   ├── users/
 │   ├── core/
 │   └── api/
-└── static/
+├── static/
+├── media/
+└── templates/
 ```
 
 ## Development Standards
-- Use environment-based settings (development, staging, production)
-- Implement proper error handling and logging
-- Use Django's migration system for database changes
+- Use environment-based settings (development, testing, staging, production)
+- Implement proper error handling and comprehensive logging
+- Use Django's migration system for all database changes
 - Follow Django naming conventions for models, views, and URLs
-- Use class-based views (CBVs) over function-based views when appropriate
+- Prefer class-based views (CBVs) over function-based views when appropriate
 - Implement proper authentication and authorization
 - Use Django's built-in admin interface for content management
+- Follow PEP 8 style guidelines with Black formatter
+- Use type hints for better code documentation and IDE support
 
 ## Security & Best Practices
 - Always use `SECRET_KEY` from environment variables
-- Enable CSRF protection
-- Use HTTPS in production
-- Implement proper input validation
-- Use Django's ORM to prevent SQL injection
-- Enable security middleware
-- For ngrok/external access: Configure ALLOWED_HOSTS and CSRF_TRUSTED_ORIGINS properly
+- Enable CSRF protection with proper configuration
+- Use HTTPS in production environments
+- Implement comprehensive input validation and sanitization
+- Use Django's ORM exclusively to prevent SQL injection
+- Enable all security middleware in production
+- Implement rate limiting for API endpoints
+- Use secure session and cookie settings
+- Regularly update dependencies for security patches
 
-## Database
-- Use SQLite for prototype development (simple setup, no external dependencies)
-- Use PostgreSQL only for production environments when needed
-- Implement proper database indexing
-- Use Django's migration system for schema changes
-- Follow Django model best practices
+## External Access Configuration (ngrok/tunneling)
+### Development with ngrok
+When developing with ngrok for external access, configure these settings in `development.py`:
 
-## API Development
-- Use Django REST Framework for APIs
-- Implement proper serializers
+```python
+# ALLOWED_HOSTS for development with ngrok
+ALLOWED_HOSTS = ['*']  # Allow all hosts for development only
+
+# CSRF settings for ngrok and external access
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok.io',
+    'https://*.ngrok-free.app',
+    'https://*.ngrok.app',
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+]
+
+# Additional headers for ngrok
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_TZ = True
+```
+
+### Usage Pattern
+1. Add ngrok settings to Django development settings
+2. Restart Django development server
+3. Start ngrok: `ngrok http 127.0.0.1:8000`
+4. Access the generated ngrok URL
+
+**Security Note**: These settings are for development only. In production, use specific domain names instead of wildcards.
+
+## Database Configuration
+- **Development**: Use SQLite for simple setup and no external dependencies
+- **Testing**: Use SQLite with in-memory database for faster tests
+- **Production**: Use PostgreSQL for production environments
+- Implement proper database indexing for performance
+- Use Django's migration system for all schema changes
+- Follow Django model best practices and naming conventions
+- Use database constraints and validation at both model and database levels
+
+## API Development with DRF
+- Use Django REST Framework for all API development
+- Implement proper serializers with validation
 - Use viewsets and routers for consistent API structure
-- Implement proper pagination
-- Use proper HTTP status codes
-- Implement API versioning when needed
+- Implement proper pagination (PageNumberPagination recommended)
+- Use appropriate HTTP status codes for all responses
+- Implement API versioning using URL namespacing
+- Add proper API documentation using drf-spectacular
+- Implement proper filtering, searching, and ordering
+- Use throttling for rate limiting API access
 
-## Testing
+## Error Handling & Logging
+- Configure comprehensive logging in settings
+- Use structured logging with appropriate log levels
+- Implement custom error pages for production
+- Use Django's exception handling mechanisms
+- Log security-related events and errors
+- Configure error notifications for production environments
+- Use Django's built-in error reporting capabilities
+
+## Testing Strategy
 - Write comprehensive unit tests using Django's TestCase
-- Use factory_boy for test data generation
+- Use factory_boy for test data generation and management
 - Implement integration tests for critical workflows
 - Use pytest-django for enhanced testing capabilities
+- Maintain high test coverage (aim for >90%)
+- Use fixtures appropriately for test data
+- Test API endpoints thoroughly with DRF test utilities
+- Implement end-to-end testing for user workflows
+
+## Performance Optimization
+- Use Django's caching framework appropriately
+- Implement database query optimization (select_related, prefetch_related)
+- Use database indexing for frequently queried fields
+- Optimize static file serving with WhiteNoise
+- Implement proper pagination for large datasets
+- Use Django Debug Toolbar for performance monitoring in development
+- Profile and optimize slow queries and views
+
+## Deployment Considerations
+- Use environment variables for all sensitive configuration
+- Implement proper static file handling
+- Configure media file storage appropriately
+- Use proper WSGI/ASGI servers (Gunicorn, Uvicorn)
+- Implement health check endpoints
+- Configure proper logging for production monitoring
+- Use database connection pooling for better performance

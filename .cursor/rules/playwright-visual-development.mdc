@@ -17,12 +17,36 @@ description: Playwright MCP based visual development guidelines
 4. **Iterate based on visual feedback** - Fix issues found during visual testing
 5. **Document visual behavior** - Capture screenshots for reference when needed
 
-## Playwright MCP Usage Guidelines
-- Use `playwright_navigate` to access pages
-- Use `playwright_screenshot` to capture current state
-- Use `playwright_click`, `playwright_fill`, `playwright_select` for interactions
-- Use `playwright_wait_for_selector` to ensure elements are loaded
-- Use `playwright_evaluate` for complex page interactions or data extraction
+## Playwright MCP Tool Usage Guidelines
+### Navigation & Page Management
+- Use `mcp_playwright_browser_navigate` to access specific URLs
+- Use `mcp_playwright_browser_navigate_back` to go back to previous pages
+- Use `mcp_playwright_browser_tabs` to manage multiple browser tabs
+
+### Visual Verification & Screenshots
+- Use `mcp_playwright_browser_snapshot` to capture accessibility-focused page snapshots (preferred)
+- Use `mcp_playwright_browser_take_screenshot` for visual screenshots and documentation
+- Use `mcp_playwright_browser_resize` to test responsive design at different screen sizes
+
+### User Interactions
+- Use `mcp_playwright_browser_click` for clicking elements (supports single/double click, different mouse buttons)
+- Use `mcp_playwright_browser_type` for entering text into form fields
+- Use `mcp_playwright_browser_press_key` for keyboard interactions (Enter, Tab, Arrow keys, etc.)
+- Use `mcp_playwright_browser_select_option` for dropdown/select interactions
+- Use `mcp_playwright_browser_fill_form` for filling multiple form fields at once
+- Use `mcp_playwright_browser_drag` for drag-and-drop operations
+- Use `mcp_playwright_browser_hover` for hover interactions
+
+### Advanced Interactions
+- Use `mcp_playwright_browser_evaluate` for executing JavaScript on the page
+- Use `mcp_playwright_browser_wait_for` to wait for specific conditions (text appear/disappear, time delays)
+- Use `mcp_playwright_browser_file_upload` for file upload testing
+- Use `mcp_playwright_browser_handle_dialog` for handling browser alerts/confirmations
+
+### Debugging & Monitoring
+- Use `mcp_playwright_browser_console_messages` to check browser console for errors
+- Use `mcp_playwright_browser_network_requests` to monitor network activity
+- Use `mcp_playwright_browser_close` to clean up browser sessions
 
 ## When to Use Visual Verification
 - **New page creation** - Always verify layout and styling
@@ -32,22 +56,61 @@ description: Playwright MCP based visual development guidelines
 - **Error handling** - Verify error messages and user feedback
 - **Responsive design** - Test on different screen sizes
 
-## Testing Strategy
-- Start with happy path scenarios
-- Test edge cases and error conditions
+## Testing Strategy & Best Practices
+### Test Planning
+- Start with happy path scenarios for core functionality
+- Test edge cases and error conditions systematically
 - Verify user experience flows end-to-end
-- Ensure accessibility and usability
-- Test cross-browser compatibility when needed
+- Ensure accessibility compliance using snapshot tool
+- Test responsive design at multiple screen sizes
+- Test cross-browser compatibility when deploying
 
-## Documentation
-- Include screenshots in development notes
-- Document any visual issues discovered
-- Track UI/UX improvements needed
-- Maintain visual regression testing when appropriate
+### Testing Workflow
+1. **Setup**: Use `mcp_playwright_browser_navigate` to reach the test page
+2. **Capture initial state**: Use `mcp_playwright_browser_snapshot` for baseline
+3. **Interact**: Use appropriate interaction tools based on the test scenario
+4. **Verify**: Capture final state and verify expected changes
+5. **Cleanup**: Use `mcp_playwright_browser_close` when testing is complete
 
-## Integration with Django Development
-- Test Django admin interface functionality
-- Verify API responses through frontend interfaces
-- Test authentication and authorization visually
-- Validate form handling and error display
-- Confirm database operations through UI interactions
+### Error Handling & Debugging
+- Monitor `mcp_playwright_browser_console_messages` for JavaScript errors
+- Check `mcp_playwright_browser_network_requests` for failed API calls
+- Use `mcp_playwright_browser_wait_for` to handle timing issues
+- Handle dialogs with `mcp_playwright_browser_handle_dialog` as needed
+
+## Documentation & Visual Records
+### Screenshot Management
+- Use `mcp_playwright_browser_take_screenshot` for documentation
+- Save screenshots with descriptive filenames for future reference
+- Include screenshots in development notes and bug reports
+- Maintain visual regression testing documentation when appropriate
+
+### Issue Tracking
+- Document any visual issues discovered during testing
+- Track UI/UX improvements needed based on visual testing
+- Record performance issues observed during interaction testing
+- Maintain a log of accessibility issues found through snapshot analysis
+
+## Django Integration Testing
+### Admin Interface Testing
+- Test Django admin interface functionality with real data
+- Verify admin customizations and permissions work correctly
+- Test bulk operations and filtering in admin interface
+
+### API & Frontend Integration
+- Verify API responses through frontend interfaces using network monitoring
+- Test authentication and authorization flows visually
+- Validate form handling, validation, and error display
+- Confirm database operations reflect correctly in UI
+
+### Authentication Flow Testing
+- Test login/logout processes end-to-end
+- Verify session management and user state persistence
+- Test password reset and account management flows
+- Validate permission-based UI changes and access controls
+
+### Data Validation Testing
+- Test form submission with valid and invalid data
+- Verify error messages display correctly and are user-friendly
+- Test file upload functionality when applicable
+- Confirm data persistence through browser refresh and navigation
