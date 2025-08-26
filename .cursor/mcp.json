@@ -1,12 +1,19 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "npx @playwright/mcp@latest",
-      "env": {}
+    "deepwiki": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.deepwiki.com/sse"
+      ]
     },
     "Context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "playwright": {
+      "command": "npx @playwright/mcp@latest",
+      "env": {}
     }
   }
 }
