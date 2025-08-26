@@ -1,0 +1,27 @@
+# Database
+db.sqlite3
+*.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+migrations/
+staticfiles/
+media/
+
+# Environment & Secrets
+.env
+*.log
+
+# Static Assets
+static/images/
+static/css/dist/
+static/js/dist/
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

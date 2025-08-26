@@ -1,0 +1,70 @@
+---
+alwaysApply: true
+description: Django development guidelines for Python prototype applications
+---
+
+# Django Prototype Development Rules
+
+## Framework Selection
+- **Always use the latest stable Django version** when creating new applications
+- Use Django REST Framework (DRF) for API development
+- Prefer Django's built-in features over third-party alternatives when possible
+
+## Project Structure
+```
+project_name/
+├── manage.py
+├── requirements.txt
+├── .env
+├── project_name/
+│   ├── settings/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── development.py
+│   │   └── production.py
+│   ├── urls.py
+│   └── wsgi.py
+├── apps/
+│   ├── users/
+│   ├── core/
+│   └── api/
+└── static/
+```
+
+## Development Standards
+- Use environment-based settings (development, staging, production)
+- Implement proper error handling and logging
+- Use Django's migration system for database changes
+- Follow Django naming conventions for models, views, and URLs
+- Use class-based views (CBVs) over function-based views when appropriate
+- Implement proper authentication and authorization
+- Use Django's built-in admin interface for content management
+
+## Security & Best Practices
+- Always use `SECRET_KEY` from environment variables
+- Enable CSRF protection
+- Use HTTPS in production
+- Implement proper input validation
+- Use Django's ORM to prevent SQL injection
+- Enable security middleware
+
+## Database
+- Use SQLite for prototype development (simple setup, no external dependencies)
+- Use PostgreSQL only for production environments when needed
+- Implement proper database indexing
+- Use Django's migration system for schema changes
+- Follow Django model best practices
+
+## API Development
+- Use Django REST Framework for APIs
+- Implement proper serializers
+- Use viewsets and routers for consistent API structure
+- Implement proper pagination
+- Use proper HTTP status codes
+- Implement API versioning when needed
+
+## Testing
+- Write comprehensive unit tests using Django's TestCase
+- Use factory_boy for test data generation
+- Implement integration tests for critical workflows
+- Use pytest-django for enhanced testing capabilities

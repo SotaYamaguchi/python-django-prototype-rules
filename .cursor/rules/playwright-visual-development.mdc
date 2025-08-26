@@ -1,0 +1,53 @@
+---
+alwaysApply: true
+description: Playwright MCP based visual development guidelines
+---
+
+# Playwright Visual Development Rules
+
+## Core Principle
+- **Always use Playwright MCP** to visually confirm screens during development
+- Visual verification is mandatory for all user-facing features
+- Test functionality through actual browser interaction, not just code inspection
+
+## Development Workflow
+1. **Implement feature** - Write the backend/frontend code
+2. **Start development server** - Ensure the application is running locally
+3. **Visual verification** - Use Playwright MCP to navigate and verify the feature
+4. **Iterate based on visual feedback** - Fix issues found during visual testing
+5. **Document visual behavior** - Capture screenshots for reference when needed
+
+## Playwright MCP Usage Guidelines
+- Use `playwright_navigate` to access pages
+- Use `playwright_screenshot` to capture current state
+- Use `playwright_click`, `playwright_fill`, `playwright_select` for interactions
+- Use `playwright_wait_for_selector` to ensure elements are loaded
+- Use `playwright_evaluate` for complex page interactions or data extraction
+
+## When to Use Visual Verification
+- **New page creation** - Always verify layout and styling
+- **Form implementations** - Test form submission and validation
+- **API integrations** - Verify data display and user interactions
+- **Authentication flows** - Test login/logout processes
+- **Error handling** - Verify error messages and user feedback
+- **Responsive design** - Test on different screen sizes
+
+## Testing Strategy
+- Start with happy path scenarios
+- Test edge cases and error conditions
+- Verify user experience flows end-to-end
+- Ensure accessibility and usability
+- Test cross-browser compatibility when needed
+
+## Documentation
+- Include screenshots in development notes
+- Document any visual issues discovered
+- Track UI/UX improvements needed
+- Maintain visual regression testing when appropriate
+
+## Integration with Django Development
+- Test Django admin interface functionality
+- Verify API responses through frontend interfaces
+- Test authentication and authorization visually
+- Validate form handling and error display
+- Confirm database operations through UI interactions
